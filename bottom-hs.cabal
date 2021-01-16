@@ -1,0 +1,26 @@
+cabal-version:       >=1.10
+
+name:                bottom-hs
+version:             1.0.0
+synopsis: Speak bottom
+description: A Haskell reimplementation of kaylynn234's bottom tool.
+homepage:    https://github.com/LyricLy/bottom-hs
+bug-reports: https://github.com/LyricLy/bottom-hs/issues
+license: BlueOakModelLicense
+license-file:        LICENSE
+author:              LyricLy
+maintainer:          gulliverhanson@gmail.com
+build-type:          Simple
+extra-doc-files:
+    CHANGELOG.md
+    README.md
+
+source-repository head
+    type: git
+    location: https://github.com/LyricLy/bottom-hs.git
+
+executable bottom
+  hs-source-dirs: src
+  main-is: Main.hs
+  other-modules: Bottom
+  build-depends: base >=4.14 && <4.15, optparse-applicative
