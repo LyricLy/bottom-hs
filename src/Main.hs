@@ -1,6 +1,7 @@
 module Main where
 
 import Data.Maybe
+import GHC.IO.Encoding
 import System.IO
 import Control.Monad
 import Data.Semigroup ((<>))
@@ -38,6 +39,7 @@ main = execParser opts >>= mainBottom
 
 mainBottom :: Options -> IO ()
 mainBottom o = do
+  setLocaleEncoding utf8
   input <- fromJust . msum $ [readFile <$> inputFile o, return <$> text o, return getContents]
   let result = if bottomify o then Just $ encodeString input else decodeString input 
   case result of
