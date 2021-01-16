@@ -1,5 +1,7 @@
 module Bottom (decodeString, encodeString) where
 
+import Data.List.Split (endBy)
+
 encodeChar :: Char -> String
 encodeChar '\0' = "❤️"
 encodeChar c =
@@ -17,5 +19,19 @@ encodeChar c =
 encodeString :: String -> String
 encodeString = concatMap encodeChar
 
+
+decodeChar :: String -> Maybe Char
+decodeChar = fmap (toEnum . sum) . sequence . map val
+  where val '\129730' = Just 200
+        val '💖' = Just 50
+        val '✨' = Just 10
+        val '🥺' = Just 5
+        val ',' = Just 1
+        val '\10084' = Just 0  -- heart
+        val '\65039' = Just 0  -- variation selector 16
+        val '\n' = Just 0      -- ignore newlines
+        val _ = Nothing
+        
+
 decodeString :: String -> Maybe String
-decodeString = Just
+decodeString = sequence . map decodeChar . endBy "👉👈"
